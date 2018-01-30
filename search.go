@@ -3,20 +3,27 @@ package main
 import (
 	"os"
 	"fmt"
-	"errors"
+)
+const (
+	Linear = "linear"
 )
 
 func main() {
-	if getFuncName() == "linear" {
-		var result, err = LinearSearch(os.Args[2], os.Args[3])
-		if err == nil {
-			fmt.Printf("Symbol was found with offset %v!", result)
-		} else {
-			fmt.Printf("Linear error: %v", err)
-		}
-	} else {
-		fmt.Println("Bad func name %v", os.Args[0])
-		os.Exit(1)
+	var funcName = getFuncName()
+	funcArgsValidate(funcName)
+	switch funcName {
+		default:
+			fmt.Printf("Bad func name %v\n", funcName)
+			os.Exit(1)
+		case Linear:
+			var pattern = os.Args[2]
+			var symbol = os.Args[3]
+			var result = LinearSearch(pattern, symbol)
+			if result != -1 {
+				fmt.Printf("Symbol was found with offset %v!", result)
+			} else {
+				fmt.Printf("Symbol '%v' not found", symbol)
+			}
 	}
 }
 
@@ -29,12 +36,24 @@ func getFuncName() (funcName string) {
 	return os.Args[1]
 }
 
-func LinearSearch(data string, symbol string) (result int, err error) {
+func funcArgsValidate(funcName string) {
+	switch funcName {
+		default:
+			return
+		case Linear:
+			if len(os.Args) != 4 {
+				fmt.Printf("Linear search usage: linear pattern symbol")
+				os.Exit(1)
+			}
+	}
+}
+
+func LinearSearch(data string, symbol string) (result int) {
 	for current := range data {
 		if symbol == string(data[current]) {
-			return current, nil
+			return current
 		}
 	}
 
-	return -1, errors.New("Symbol not found")
+	return -1
 }
