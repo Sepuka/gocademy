@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"fmt"
+	"errors"
 )
 const (
 	Linear = "linear"
@@ -18,11 +19,11 @@ func main() {
 		case Linear:
 			var pattern = os.Args[2]
 			var symbol = os.Args[3]
-			var result = LinearSearch(pattern, symbol)
-			if result != -1 {
+			var result, err = LinearSearch(pattern, symbol)
+			if err == nil {
 				fmt.Printf("Symbol was found with offset %v!", result)
 			} else {
-				fmt.Printf("Symbol '%v' not found", symbol)
+				fmt.Printf("Search error for symbol '%v': %v", symbol, err)
 			}
 	}
 }
@@ -48,12 +49,12 @@ func funcArgsValidate(funcName string) {
 	}
 }
 
-func LinearSearch(data string, symbol string) (result int) {
+func LinearSearch(data string, symbol string) (result int, err error) {
 	for current := range data {
 		if symbol == string(data[current]) {
-			return current
+			return current, nil
 		}
 	}
 
-	return -1
+	return -1, errors.New("Pattern not found")
 }
