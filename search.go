@@ -4,10 +4,14 @@ import (
 	"os"
 	"fmt"
 	"errors"
+	"strings"
 )
+
 const (
 	Linear = "linear"
 )
+
+var AvailableFuncs = []string{Linear}
 
 func main() {
 	var funcName = getFuncName()
@@ -15,11 +19,12 @@ func main() {
 	switch funcName {
 		default:
 			fmt.Printf("Bad func name %v\n", funcName)
+			fmt.Printf("usage: %v %v", os.Args[1], avalableFuncs())
 			os.Exit(1)
 		case Linear:
 			var pattern = os.Args[2]
 			var symbol = os.Args[3]
-			var result, err = LinearSearch(pattern, symbol)
+			var result, err = linearSearch(pattern, symbol)
 			if err == nil {
 				fmt.Printf("Symbol was found with offset %v!", result)
 			} else {
@@ -29,7 +34,7 @@ func main() {
 }
 
 func getFuncName() (funcName string) {
-	if len(os.Args) == 0 {
+	if len(os.Args) < 2 {
 		fmt.Printf("Expected func name")
 		os.Exit(1)
 	}
@@ -49,7 +54,7 @@ func funcArgsValidate(funcName string) {
 	}
 }
 
-func LinearSearch(data string, symbol string) (result int, err error) {
+func linearSearch(data string, symbol string) (result int, err error) {
 	for current := range data {
 		if symbol == string(data[current]) {
 			return current, nil
@@ -57,4 +62,8 @@ func LinearSearch(data string, symbol string) (result int, err error) {
 	}
 
 	return -1, errors.New("Pattern not found")
+}
+
+func avalableFuncs() (string) {
+	return strings.Join(AvailableFuncs, " | ")
 }
