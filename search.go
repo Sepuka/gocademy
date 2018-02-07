@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 	"fmt"
-	"errors"
 	"strings"
+	"gocademy/search"
 )
 
 const (
@@ -24,7 +24,7 @@ func main() {
 		case Linear:
 			var pattern = os.Args[2]
 			var symbol = os.Args[3]
-			var result, err = linearSearch(pattern, symbol)
+			var result, err = linear.LinearSearch(pattern, symbol)
 			if err == nil {
 				fmt.Printf("Symbol was found with offset %v!", result)
 			} else {
@@ -52,16 +52,6 @@ func funcArgsValidate(funcName string) {
 				os.Exit(1)
 			}
 	}
-}
-
-func linearSearch(data string, symbol string) (result int, err error) {
-	for current := range data {
-		if symbol == string(data[current]) {
-			return current, nil
-		}
-	}
-
-	return -1, errors.New("Pattern not found")
 }
 
 func avalableFuncs() (string) {
