@@ -24,7 +24,7 @@ func main() {
 		case Linear:
 			var pattern = os.Args[2]
 			var symbol = os.Args[3]
-			var result, err = linear.LinearSearch(pattern, symbol)
+			var result, err = search.LinearSearch(pattern, symbol)
 			if err == nil {
 				fmt.Printf("Symbol was found with offset %v!", result)
 			} else {
