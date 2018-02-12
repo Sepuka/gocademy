@@ -8,15 +8,17 @@ import (
 
 const (
 	Linear = "linear"
+	ImprovedLinear = "improved_linear"
 )
 
 func main() {
-	availableFuncss := map[string]int{
+	availableFuncsMap := map[string]int{
 		Linear: 4,
+		ImprovedLinear: 4,
 	}
 
 	funcName := getFuncName()
-	expectedArgs, funcExists := availableFuncss[funcName]
+	expectedArgs, funcExists := availableFuncsMap[funcName]
 	if !funcExists {
 		fmt.Printf("%v func name not exists!\n", funcName)
 		os.Exit(1)
@@ -27,7 +29,7 @@ func main() {
 	}
 
 	switch funcName {
-		case Linear:
+		case Linear, ImprovedLinear:
 			var pattern = os.Args[2]
 			var symbol = os.Args[3]
 			var result, err = search.LinearSearch(pattern, symbol)
