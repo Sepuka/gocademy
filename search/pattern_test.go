@@ -1,6 +1,8 @@
 package search
 
-import "testing"
+import (
+	"testing"
+)
 
 type patternDataSet struct {
 	data     string
@@ -21,5 +23,15 @@ func TestSimplePatternSearch(t *testing.T) {
 		if actualPos != set.position {
 			t.Error("For", set.pattern, "expected", set.position, "position, but got", actualPos)
 		}
+	}
+}
+
+func BenchmarkSimplePatternSearch(b *testing.B) {
+	buffer, pattern, err := bufferDataProvider(100, 10)
+	if err != nil {
+		b.Error(err)
+	}
+	for i := 0; i < b.N; i++ {
+		SimplePatternSearch(buffer, pattern)
 	}
 }

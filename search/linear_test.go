@@ -2,8 +2,6 @@ package search
 
 import (
 	"testing"
-	"crypto/rand"
-	"os"
 )
 
 type dataSet struct {
@@ -32,17 +30,13 @@ func TestLinearSearch(t *testing.T) {
 }
 
 func BenchmarkLinearSearch(b *testing.B) {
-	buffer := make([] byte, 100)
-	_, err := rand.Read(buffer)
-	symbol := make([] byte, 1)
-	_, symbolErr := rand.Read(symbol)
-	if err != nil || symbolErr != nil {
-		b.Error("Cannot generate a test data")
-		os.Exit(1)
+	buffer, symbol, err := bufferDataProvider(100, 1)
+	if err != nil {
+		b.Error(err)
 	}
 
 	for i := 0; i < b.N; i++ {
-		LinearSearch(string(buffer), string(symbol))
+		LinearSearch(buffer, symbol)
 	}
 }
 
@@ -56,15 +50,11 @@ func TestLinearImprovedSearch(t *testing.T) {
 }
 
 func BenchmarkLinearImprovedSearch(b *testing.B) {
-	buffer := make([] byte, 1)
-	_, err := rand.Read(buffer)
-	symbol := make([] byte, 1)
-	_, symbolErr := rand.Read(symbol)
-	if err != nil || symbolErr != nil {
-		b.Error("Cannot generate a test data")
-		os.Exit(1)
+	buffer, symbol, err := bufferDataProvider(100, 1)
+	if err != nil {
+		b.Error(err)
 	}
 	for i := 0; i < b.N; i++ {
-		LinearImprovedSearch(string(buffer), string(symbol))
+		LinearImprovedSearch(buffer, symbol)
 	}
 }
