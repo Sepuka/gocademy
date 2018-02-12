@@ -13,7 +13,7 @@ func SimplePatternSearch(text string, pattern string) (result int, err error) {
 	}
 
 	if textLen - patternLen < textPos {
-		return -1, errors.New("Symbol not found")
+		return -1, errors.New("Pattern not found")
 	} else {
 		return textPos, nil
 	}

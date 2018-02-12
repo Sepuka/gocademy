@@ -9,12 +9,14 @@ import (
 const (
 	Linear = "linear"
 	ImprovedLinear = "improved_linear"
+	SimplePattern = "simple_pattern"
 )
 
 func main() {
 	availableFuncsMap := map[string]int{
 		Linear: 4,
 		ImprovedLinear: 4,
+		SimplePattern: 4,
 	}
 
 	funcName := getFuncName()
@@ -24,7 +26,7 @@ func main() {
 		os.Exit(1)
 	}
 	if len(os.Args) != expectedArgs {
-		fmt.Printf("%v search usage: %v pattern symbol\n", funcName, funcName)
+		fmt.Printf("%v search usage: %v text symbol\n", funcName, funcName)
 		os.Exit(1)
 	}
 
@@ -37,6 +39,15 @@ func main() {
 				fmt.Printf("Symbol was found with offset %v!", result)
 			} else {
 				fmt.Printf("Search error for symbol '%v': %v", symbol, err)
+			}
+		case SimplePattern:
+			var text = os.Args[2]
+			var pattern = os.Args[3]
+			var result, err = search.SimplePatternSearch(text, pattern)
+			if err == nil {
+				fmt.Printf("Pattern was found with offset %v!", result)
+			} else {
+				fmt.Printf("Pattern error search for '%v': %v", pattern, err)
 			}
 	}
 }
