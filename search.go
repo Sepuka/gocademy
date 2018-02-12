@@ -3,7 +3,6 @@ package main
 import (
 	"os"
 	"fmt"
-	"strings"
 	"gocademy/search"
 )
 
@@ -11,16 +10,23 @@ const (
 	Linear = "linear"
 )
 
-var AvailableFuncs = []string{Linear}
-
 func main() {
-	var funcName = getFuncName()
-	funcArgsValidate(funcName)
+	availableFuncss := map[string]int{
+		Linear: 4,
+	}
+
+	funcName := getFuncName()
+	expectedArgs, funcExists := availableFuncss[funcName]
+	if !funcExists {
+		fmt.Printf("%v func name not exists!\n", funcName)
+		os.Exit(1)
+	}
+	if len(os.Args) != expectedArgs {
+		fmt.Printf("%v search usage: %v pattern symbol\n", funcName, funcName)
+		os.Exit(1)
+	}
+
 	switch funcName {
-		default:
-			fmt.Printf("Bad func name %v\n", funcName)
-			fmt.Printf("usage: %v %v", os.Args[1], avalableFuncs())
-			os.Exit(1)
 		case Linear:
 			var pattern = os.Args[2]
 			var symbol = os.Args[3]
@@ -35,25 +41,9 @@ func main() {
 
 func getFuncName() (funcName string) {
 	if len(os.Args) < 2 {
-		fmt.Printf("Expected func name")
+		fmt.Printf("Expected func name!\n")
 		os.Exit(1)
 	}
 
 	return os.Args[1]
-}
-
-func funcArgsValidate(funcName string) {
-	switch funcName {
-		default:
-			return
-		case Linear:
-			if len(os.Args) != 4 {
-				fmt.Printf("Linear search usage: linear pattern symbol")
-				os.Exit(1)
-			}
-	}
-}
-
-func avalableFuncs() (string) {
-	return strings.Join(AvailableFuncs, " | ")
 }
