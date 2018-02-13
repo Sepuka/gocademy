@@ -6,13 +6,21 @@ import (
 )
 
 func bufferDataProvider(bufferLen uint, patternLen uint) (string, string, error) {
-	buffer := make([] byte, bufferLen)
-	_, err := rand.Read(buffer)
-	pattern := make([] byte, patternLen)
-	_, symbolErr := rand.Read(pattern)
-	if err == nil && symbolErr == nil {
-		return string(buffer), string(pattern), nil
+	buffer, err := generateBytes(bufferLen)
+	if err != nil {
+		return "", "", errors.New(err.Error())
 	}
 
-	return "", "", errors.New("Cannot generate test data")
+	pattern, err := generateBytes(patternLen)
+	if err != nil {
+		return "", "", errors.New(err.Error())
+	}
+
+	return string(buffer), string(pattern), nil
+}
+
+func generateBytes(length uint) (n int, err error) {
+	buffer := make([] byte, length)
+
+	return rand.Read(buffer)
 }
