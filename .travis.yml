@@ -1,4 +1,7 @@
 language: go
 go:
-    - master
+  - master
+install:
+  - go get -u github.com/golang/dep/cmd/dep
+  - dep ensure -v
 go_import_path: gocademy

@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/sepuka/gocademy/search"
 	"os"
 	"fmt"
-	"gocademy/search"
 )
 
 const (
