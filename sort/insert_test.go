@@ -6,11 +6,6 @@ import (
 	"testing"
 )
 
-type dataSet struct {
-	data     []int
-	expected []int
-}
-
 type insertSortSuite struct {
 	suite.Suite
 	dataSet []dataSet
@@ -33,7 +28,7 @@ func (suite insertSortSuite) TestDummy() {
 
 func (suite insertSortSuite) TestImprovedDummy() {
 	for _, set := range suite.dataSet {
-		assert.Equal(suite.T(), improvedDummy(set.data), set.expected)
+		assert.Equal(suite.T(), set.expected, improvedDummy(set.data))
 	}
 }
 
