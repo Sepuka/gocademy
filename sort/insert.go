@@ -2,11 +2,10 @@ package sort
 
 // Пример наивной реализации устойчивой сортировки
 func dummy(in []int) []int {
+	var j int
 	for pos, el := range in {
-		j := pos
-		for j > 0 && in[j-1] > el {
+		for j = pos; j > 0 && in[j-1] > el; j-- {
 			in[j] = in[j-1]
-			j--
 		}
 		in[j] = el
 	}
@@ -19,14 +18,11 @@ func improvedDummy(in []int) []int {
 	var left, right, med, j int
 
 	for pos, el := range in {
-		if pos == 0 {
-			continue
-		}
 		left = 0
 		right = pos
 
 		for left < right {
-			med = (left + right) / 2
+			med = (left + right) >> 1
 			if in[med] <= el {
 				left = med + 1
 			} else {

@@ -6,3 +6,6 @@ format:
 
 tests:
 	$(GOCMD) test -v ./...
+
+bench:
+	$(GOCMD) test -v -bench=^Benchmark ./...
