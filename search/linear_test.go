@@ -5,8 +5,8 @@ import (
 )
 
 type dataSet struct {
-	data string
-	symbol string
+	data     string
+	symbol   string
 	position int
 }
 
@@ -42,7 +42,7 @@ func BenchmarkLinearSearch(b *testing.B) {
 
 func TestLinearImprovedSearch(t *testing.T) {
 	for _, set := range dataProvider {
-		var actualPos, _= LinearImprovedSearch(set.data, set.symbol)
+		var actualPos, _ = LinearImprovedSearch(set.data, set.symbol)
 		if actualPos != set.position {
 			t.Error("For", set.symbol, "expected", set.position, "position, but got", actualPos)
 		}

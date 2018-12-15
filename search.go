@@ -1,22 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"github.com/sepuka/gocademy/search"
 	"os"
-	"fmt"
 )
 
 const (
-	Linear = "linear"
+	Linear         = "linear"
 	ImprovedLinear = "improved_linear"
-	SimplePattern = "simple_pattern"
+	SimplePattern  = "simple_pattern"
 )
 
 func main() {
 	availableFuncsMap := map[string]int{
-		Linear: 4,
+		Linear:         4,
 		ImprovedLinear: 4,
-		SimplePattern: 4,
+		SimplePattern:  4,
 	}
 
 	funcName := getFuncName()
@@ -31,24 +31,24 @@ func main() {
 	}
 
 	switch funcName {
-		case Linear, ImprovedLinear:
-			var pattern = os.Args[2]
-			var symbol = os.Args[3]
-			var result, err = search.LinearSearch(pattern, symbol)
-			if err == nil {
-				fmt.Printf("Symbol was found with offset %v!", result)
-			} else {
-				fmt.Printf("Search error for symbol '%v': %v", symbol, err)
-			}
-		case SimplePattern:
-			var text = os.Args[2]
-			var pattern = os.Args[3]
-			var result, err = search.SimplePatternSearch(text, pattern)
-			if err == nil {
-				fmt.Printf("Pattern was found with offset %v!", result)
-			} else {
-				fmt.Printf("Pattern error search for '%v': %v", pattern, err)
-			}
+	case Linear, ImprovedLinear:
+		var pattern = os.Args[2]
+		var symbol = os.Args[3]
+		var result, err = search.LinearSearch(pattern, symbol)
+		if err == nil {
+			fmt.Printf("Symbol was found with offset %v!", result)
+		} else {
+			fmt.Printf("Search error for symbol '%v': %v", symbol, err)
+		}
+	case SimplePattern:
+		var text = os.Args[2]
+		var pattern = os.Args[3]
+		var result, err = search.SimplePatternSearch(text, pattern)
+		if err == nil {
+			fmt.Printf("Pattern was found with offset %v!", result)
+		} else {
+			fmt.Printf("Pattern error search for '%v': %v", pattern, err)
+		}
 	}
 }
 

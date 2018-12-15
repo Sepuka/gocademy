@@ -20,7 +20,7 @@ func bufferDataProvider(bufferLen uint, patternLen uint) (string, string, error)
 }
 
 func generateBytes(length uint) (n int, err error) {
-	buffer := make([] byte, length)
+	buffer := make([]byte, length)
 
 	return rand.Read(buffer)
 }

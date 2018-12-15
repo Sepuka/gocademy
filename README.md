@@ -1,1 +1,2 @@
 [![Build Status](https://travis-ci.org/Sepuka/gocademy.svg?branch=master)](https://travis-ci.org/Sepuka/gocademy)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Sepuka/gocademy)](https://goreportcard.com/report/github.com/Sepuka/gocademy)
