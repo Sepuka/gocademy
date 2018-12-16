@@ -1,7 +1,7 @@
 package sort
 
 // Пример наивной реализации устойчивой сортировки
-func dummy(in []int) []int {
+func dummy(in []uint32) []uint32 {
 	var j int
 	for pos, el := range in {
 		for j = pos; j > 0 && in[j-1] > el; j-- {
@@ -14,7 +14,7 @@ func dummy(in []int) []int {
 }
 
 // Улучшение состоит в бинарном поиске подходящей позиции для нового элемента
-func improvedDummy(in []int) []int {
+func improvedDummy(in []uint32) []uint32 {
 	var left, right, med, j int
 
 	for pos, el := range in {

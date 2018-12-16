@@ -1,6 +1,6 @@
 package sort
 
 type dataSet struct {
-	data     []int
-	expected []int
+	data     []uint32
+	expected []uint32
 }

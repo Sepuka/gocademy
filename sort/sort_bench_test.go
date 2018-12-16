@@ -1,13 +1,13 @@
 package sort
 
 import (
-	"github.com/sepuka/gocademy/test"
+	"github.com/sepuka/gonerator/number"
 	"testing"
 )
 
 const sequenceLen = 84190
 
-var sequence []int
+var sequence []uint32
 
 func BenchmarkDummySortBench(b *testing.B) {
 	for i := 0; i < b.N; i++ {
@@ -22,5 +22,5 @@ func BenchmarkImprovedDummySortBench(b *testing.B) {
 }
 
 func init() {
-	sequence = test.GenerateIntSequence(sequenceLen)
+	sequence = number.Uint32(sequenceLen)
 }

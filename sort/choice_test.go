@@ -13,10 +13,10 @@ type choiceSortSuite struct {
 
 func (suite *choiceSortSuite) SetupTest() {
 	suite.dataSet = []dataSet{
-		{[]int{0}, []int{0}},
-		{[]int{0, 1}, []int{0, 1}},
-		{[]int{1, 0}, []int{0, 1}},
-		{[]int{1, 0, 3, 2, 5, 4}, []int{0, 1, 2, 3, 4, 5}},
+		{[]uint32{0}, []uint32{0}},
+		{[]uint32{0, 1}, []uint32{0, 1}},
+		{[]uint32{1, 0}, []uint32{0, 1}},
+		{[]uint32{1, 0, 3, 2, 5, 4}, []uint32{0, 1, 2, 3, 4, 5}},
 	}
 }
 

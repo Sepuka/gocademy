@@ -1,7 +1,8 @@
 package sort
 
-func simpleChoice(in []int) []int {
-	var minValue, minPos int
+func simpleChoice(in []uint32) []uint32 {
+	var minValue uint32
+	var minPos int
 	for pos, el := range in {
 		minValue = el
 		minPos = pos

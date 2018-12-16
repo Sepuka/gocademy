@@ -1,5 +1,9 @@
 GOFMT=gofmt
 GOCMD=go
+GODEP=dep
+
+all:
+	$(GODEP) ensure -v
 
 format:
 	$(GOFMT) -w .
