@@ -1,7 +1,7 @@
 package sort
 
 import (
-	"github.com/stretchr/testify/assert"
+	"github.com/magiconair/properties/assert"
 	"github.com/stretchr/testify/suite"
 	"testing"
 )
