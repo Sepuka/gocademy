@@ -3,6 +3,7 @@ package sort
 // Пример наивной реализации устойчивой сортировки
 func dummy(in []uint32) []uint32 {
 	var j int
+
 	for pos, el := range in {
 		for j = pos; j > 0 && in[j-1] > el; j-- {
 			in[j] = in[j-1]

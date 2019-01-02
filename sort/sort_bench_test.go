@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-const sequenceLen = 100000
+const sequenceLen = 10000
 
 var sequence []uint32
 
@@ -24,5 +24,14 @@ func BenchmarkImprovedDummySortBench(b *testing.B) {
 		sequence = number.SeqUint32(sequenceLen)
 		b.StartTimer()
 		improvedDummy(sequence)
+	}
+}
+
+func BenchmarkImprovedBubbleSortBench(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		sequence = number.SeqUint32(sequenceLen)
+		b.StartTimer()
+		bubble(sequence)
 	}
 }

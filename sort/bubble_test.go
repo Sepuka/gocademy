@@ -6,12 +6,12 @@ import (
 	"testing"
 )
 
-type insertSortSuite struct {
+type bubbleSortSuite struct {
 	suite.Suite
 	dataSet []dataSet
 }
 
-func (suite *insertSortSuite) SetupTest() {
+func (suite *bubbleSortSuite) SetupTest() {
 	suite.dataSet = []dataSet{
 		{[]uint32{0}, []uint32{0}},
 		{[]uint32{0, 1}, []uint32{0, 1}},
@@ -21,18 +21,12 @@ func (suite *insertSortSuite) SetupTest() {
 	}
 }
 
-func (suite insertSortSuite) TestDummy() {
+func (suite bubbleSortSuite) Test() {
 	for _, set := range suite.dataSet {
-		assert.Equal(suite.T(), dummy(set.data), set.expected)
+		assert.Equal(suite.T(), bubble(set.data), set.expected)
 	}
 }
 
-func (suite insertSortSuite) TestImprovedDummy() {
-	for _, set := range suite.dataSet {
-		assert.Equal(suite.T(), set.expected, improvedDummy(set.data))
-	}
-}
-
-func TestInsertSort(t *testing.T) {
-	suite.Run(t, new(insertSortSuite))
+func TestBubbleSort(t *testing.T) {
+	suite.Run(t, new(bubbleSortSuite))
 }
