@@ -35,3 +35,12 @@ func BenchmarkImprovedBubbleSortBench(b *testing.B) {
 		bubble(sequence)
 	}
 }
+
+func BenchmarkShellSortBench(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		sequence = number.SeqUint32(sequenceLen)
+		b.StartTimer()
+		shell(sequence)
+	}
+}
