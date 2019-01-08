@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-const sequenceLen = 10000
+const sequenceLen = 50000
 
 var sequence []uint32
 
@@ -42,5 +42,14 @@ func BenchmarkShellSortBench(b *testing.B) {
 		sequence = number.SeqUint32(sequenceLen)
 		b.StartTimer()
 		shell(sequence)
+	}
+}
+
+func BenchmarkHeapSortBench(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		sequence = number.SeqUint32(sequenceLen)
+		b.StartTimer()
+		heap(sequence)
 	}
 }
