@@ -8,7 +8,7 @@ func heap(in []uint32) []uint32 {
 
 	for l > 0 {
 		l--
-		sift(in, l, len(in) - 1)
+		sift(in, l, len(in)-1)
 	}
 
 	for r > 0 {
@@ -28,7 +28,7 @@ func sift(in []uint32, l, r int) {
 	j = 2*i + 1
 	x = in[i]
 
-	if j < r && in[j + 1] > in[j] {
+	if j < r && in[j+1] > in[j] {
 		j++
 	}
 
@@ -37,7 +37,7 @@ func sift(in []uint32, l, r int) {
 		i = j
 		j = 2*j + 1
 
-		if j < r && in[j + 1] > in[j] {
+		if j < r && in[j+1] > in[j] {
 			j++
 		}
 	}

@@ -6,12 +6,12 @@ import (
 	"testing"
 )
 
-type heapSortSuite struct {
+type quickSortSuite struct {
 	suite.Suite
 	dataSet []dataSet
 }
 
-func (suite *heapSortSuite) SetupTest() {
+func (suite *quickSortSuite) SetupTest() {
 	suite.dataSet = []dataSet{
 		{[]uint32{0}, []uint32{0}},
 		{[]uint32{0, 1}, []uint32{0, 1}},
@@ -22,12 +22,12 @@ func (suite *heapSortSuite) SetupTest() {
 	}
 }
 
-func (suite heapSortSuite) TestHeap() {
+func (suite quickSortSuite) TestQuick() {
 	for _, set := range suite.dataSet {
-		assert.Equal(suite.T(), heap(set.data), set.expected)
+		assert.Equal(suite.T(), quick(set.data), set.expected)
 	}
 }
 
-func TestHeapSort(t *testing.T) {
-	suite.Run(t, new(heapSortSuite))
+func TestQuickSort(t *testing.T) {
+	suite.Run(t, new(quickSortSuite))
 }

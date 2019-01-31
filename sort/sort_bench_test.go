@@ -53,3 +53,12 @@ func BenchmarkHeapSortBench(b *testing.B) {
 		heap(sequence)
 	}
 }
+
+func BenchmarkQuickSortBench(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		b.StopTimer()
+		sequence = number.SeqUint32(sequenceLen)
+		b.StartTimer()
+		quick(sequence)
+	}
+}
