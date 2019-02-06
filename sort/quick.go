@@ -1,5 +1,7 @@
 package sort
 
+import "github.com/sepuka/gocademy/sort/interal"
+
 func quick(in []uint32) []uint32 {
 	return sort(in, 0, len(in)-1)
 }
@@ -14,17 +16,7 @@ func sort(in []uint32, l, r int) []uint32 {
 
 	do := true
 	for do {
-		for in[i] < x {
-			i++
-		}
-		for x < in[j] {
-			j--
-		}
-		if i <= j {
-			in[j], in[i] = in[i], in[j]
-			i++
-			j--
-		}
+		interal.Partition(in, x, &i, &j)
 		do = j > i
 	}
 
