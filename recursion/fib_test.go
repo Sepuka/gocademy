@@ -35,6 +35,12 @@ func (suite *FibSuite) TestRecursive() {
 	}
 }
 
+func (suite *FibSuite) TestIter() {
+	for _, set := range suite.dataSet {
+		assert.Equal(suite.T(), FibIter(set[0]), set[1])
+	}
+}
+
 func TestFib(t *testing.T)  {
 	suite.Run(t, new(FibSuite))
 }
