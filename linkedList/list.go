@@ -27,8 +27,27 @@ func (l *linkedList) list() []*node {
 	return result
 }
 
-func (l *linkedList) toHead(node *node) {
-	node.next = l.head
-	l.head = node
-	l.len += 1
+func (l *linkedList) toHead(nodeDescr *node) {
+	nodeDescr.next = l.head
+	l.head = nodeDescr
+	l.len++
+}
+
+func (l *linkedList) toTail(nodeDescr *node) {
+	if l.tail == nil {
+		if l.head == nil {
+			l.toHead(nodeDescr)
+			l.tail = nodeDescr
+		} else {
+			tail := l.head
+			for tail.next != nil {
+				tail = tail.next
+			}
+			tail.next = nodeDescr
+			l.len++
+		}
+	} else {
+		l.tail.next = nodeDescr
+		l.len++
+	}
 }
