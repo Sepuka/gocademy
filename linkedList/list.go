@@ -51,3 +51,31 @@ func (l *linkedList) toTail(nodeDescr *node) {
 		l.len++
 	}
 }
+
+func (l *linkedList) toPos(nodeDescr *node, pos int) {
+	if pos > l.len {
+		panic("undefined position")
+	}
+	if pos == 0 {
+		l.toHead(nodeDescr)
+		return
+	}
+	if pos == l.len {
+		l.toTail(nodeDescr)
+		return
+	}
+
+	var current, buffer *node
+	current = l.head
+	cnt := 0
+	for cnt < pos {
+		cnt++
+		current = current.next
+	}
+
+	buffer = &node{key: current.key, next: current.next, data: current.data}
+	current.key = nodeDescr.key
+	current.data = nodeDescr.data
+	current.next = buffer
+	l.len++
+}

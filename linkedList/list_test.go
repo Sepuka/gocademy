@@ -5,7 +5,7 @@ import (
 )
 
 func TestAddNode(t *testing.T) {
-	expectedList := []int{2,1,3,4}
+	expectedList := []int{2,1,5,3,4}
 
 	list := linkedList{}
 	if list.len != 0 {
@@ -16,6 +16,7 @@ func TestAddNode(t *testing.T) {
 	list.toTail(NewNode(3))
 	list.toHead(NewNode(2))
 	list.toTail(NewNode(4))
+	list.toPos(NewNode(5), 2)
 
 	if list.len != len(expectedList) {
 		t.Error("wrong list length")
