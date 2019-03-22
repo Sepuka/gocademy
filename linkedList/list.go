@@ -48,6 +48,7 @@ func (l *linkedList) toTail(nodeDescr *node) {
 		}
 	} else {
 		l.tail.next = nodeDescr
+		l.tail = nodeDescr
 		l.len++
 	}
 }
