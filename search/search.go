@@ -1,8 +1,7 @@
-package main
+package search
 
 import (
 	"fmt"
-	"github.com/sepuka/gocademy/search"
 	"os"
 )
 
@@ -34,7 +33,7 @@ func main() {
 	case Linear, ImprovedLinear:
 		var pattern = os.Args[2]
 		var symbol = os.Args[3]
-		var result, err = search.LinearSearch(pattern, symbol)
+		var result, err = LinearSearch(pattern, symbol)
 		if err == nil {
 			fmt.Printf("Symbol was found with offset %v!", result)
 		} else {
@@ -43,7 +42,7 @@ func main() {
 	case SimplePattern:
 		var text = os.Args[2]
 		var pattern = os.Args[3]
-		var result, err = search.SimplePatternSearch(text, pattern)
+		var result, err = SimplePatternSearch(text, pattern)
 		if err == nil {
 			fmt.Printf("Pattern was found with offset %v!", result)
 		} else {

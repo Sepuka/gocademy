@@ -5,10 +5,32 @@ import (
 	"strings"
 )
 
-type treeNode struct {
-	value int
-	left *treeNode
-	right *treeNode
+const separator = " "
+
+type Node struct {
+	Value int
+	Left  *Node
+	Right *Node
+}
+
+func (node *Node) isLeaf() bool {
+	return node.Left == nil
+}
+
+func (node *Node) getDeep() uint {
+	if node == nil {
+		return 0
+	}
+
+	return calcDeep(node, 1)
+}
+
+func calcDeep(node *Node, deep uint) uint {
+	if node.isLeaf() {
+		return deep
+	}
+
+	return calcDeep(node.Left, deep+1)
 }
 
 type Builder struct {
@@ -16,12 +38,16 @@ type Builder struct {
 }
 
 func NewTreeBuilder(source string) Builder {
-	return Builder{source: strings.Split(source, " ")}
+	return Builder{source: strings.Split(source, separator)}
 }
 
-func (t *Builder) build(n int) *treeNode {
+func (t *Builder) Length() int {
+	return len(t.source)
+}
+
+func (t *Builder) Build(n int) *Node {
 	var (
-		node = &treeNode{}
+		node = &Node{}
 		value int64
 		err error
 		nl, nr int
@@ -33,11 +59,11 @@ func (t *Builder) build(n int) *treeNode {
 		if err != nil {
 			return nil
 		}
-		node.value, t.source = int(value), t.source[1:]
+		node.Value, t.source = int(value), t.source[1:]
 		nl = n / 2
 		nr = n - nl - 1
-		node.left = t.build(nl)
-		node.right = t.build(nr)
+		node.Left = t.Build(nl)
+		node.Right = t.Build(nr)
 	}
 
 	return node

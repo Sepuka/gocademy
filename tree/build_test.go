@@ -14,7 +14,8 @@ type treeBuilderTest struct {
 func (t *treeBuilderTest) Test() {
 	var cases = map[string]struct{
 		source string
-		tree *treeNode
+		tree *Node
+		deep uint
 	}{
 		"empty source": {
 			source: "",
@@ -22,60 +23,63 @@ func (t *treeBuilderTest) Test() {
 		},
 		"alone symbol": {
 			source: "1",
-			tree: &treeNode{
-				value: 1,
+			tree: &Node{
+				Value: 1,
 			},
+			deep: 1,
 		},
 		"couple of symbols": {
 			source: "1 2",
-			tree: &treeNode{
-				value: 1,
-				left: &treeNode{
-					value: 2,
+			tree: &Node{
+				Value: 1,
+				Left: &Node{
+					Value: 2,
 				},
 			},
+			deep: 2,
 		},
 		"triple of symbols": {
 			source: "1 2 3",
-			tree: &treeNode{
-				value: 1,
-				left: &treeNode{
-					value: 2,
+			tree: &Node{
+				Value: 1,
+				Left: &Node{
+					Value: 2,
 				},
-				right: &treeNode{
-					value: 3,
+				Right: &Node{
+					Value: 3,
 				},
 			},
+			deep: 2,
 		},
 		"a lot of symbols": {
-			source: "1 2 3 4 5 6 7",
-			tree: &treeNode{
-				value: 1,
-				left: &treeNode{
-					value: 2,
-					left: &treeNode{
-						value: 3,
+			source: "1 2 3 4 5 6",
+			tree: &Node{
+				Value: 1,
+				Left: &Node{
+					Value: 2,
+					Left: &Node{
+						Value: 3,
 					},
-					right: &treeNode{
-						value: 4,
+					Right: &Node{
+						Value: 4,
 					},
 				},
-				right: &treeNode{
-					value: 5,
-					left: &treeNode{
-						value: 6,
-					},
-					right: &treeNode{
-						value: 7,
+				Right: &Node{
+					Value: 5,
+					Left: &Node{
+						Value: 6,
 					},
 				},
 			},
+			deep: 3,
 		},
 	}
 	for testName, testCase := range cases {
+		errMsg := fmt.Sprintf("case '%s' failed", testName)
 		builder := NewTreeBuilder(testCase.source)
-		tree := builder.build(len(builder.source))
-		t.Suite.Equal(testCase.tree, tree, fmt.Sprintf("case '%s' failed", testName))
+		tree := builder.Build(len(builder.source))
+		t.Suite.Equal(testCase.deep, tree.getDeep(), errMsg)
+		t.Suite.Equal(testCase.tree, tree, errMsg)
 	}
 }
 
