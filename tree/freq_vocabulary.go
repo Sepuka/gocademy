@@ -1,13 +1,13 @@
 package tree
 
 type frequencyVocabularyNode struct {
-	value int
+	value string
 	cnt uint
 	left *frequencyVocabularyNode
 	right *frequencyVocabularyNode
 }
 
-func insert(node *frequencyVocabularyNode, x int) *frequencyVocabularyNode {
+func insert(node *frequencyVocabularyNode, x string) *frequencyVocabularyNode {
 	if node == nil {
 		node = &frequencyVocabularyNode{
 			value: x,

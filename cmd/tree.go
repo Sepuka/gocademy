@@ -8,7 +8,7 @@ import (
 const defaultTree = "1 2 3 4 4 3 4 4 2 3 4 4 3 4 4"
 
 var treeCmd = &cobra.Command{
-	Use:   "tree",
+	Use:   "tree \"1 2 3 4 5 6 7 8 9 0\"",
 	Short: "Build and print a binary tree",
 	Long:  `Print a tree like this
               1
