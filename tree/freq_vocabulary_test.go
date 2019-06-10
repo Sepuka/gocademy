@@ -1,42 +1,64 @@
 package tree
 
 import (
-	"fmt"
+	"strings"
 	"testing"
 
-	"github.com/magiconair/properties/assert"
+	"github.com/sepuka/gocademy/resources"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
+)
+const (
+	expectedDictionary = `
+brother	2
+father	1	2	5
+mother	1
+sister	3
+uncle	2	4`
+	wordsDelimiter = " "
+	rowsDelimiter = "\n"
 )
 
-func TestFrequencyVocabulary(t *testing.T) {
-	var testCases = map[string]struct{
-		lst []string
-		expected *frequencyVocabularyNode
-	}{
-		"empty": {
-			lst:[]string{},
-			expected:nil,
-		},
-		"some items": {
-			lst: []string{"1","2","3","2","1"},
-			expected: &frequencyVocabularyNode{
-				value: "1",
-				cnt:   2,
-				right: &frequencyVocabularyNode{
-					value: "2",
-					cnt:   2,
-					right: &frequencyVocabularyNode{
-						value: "3",
-						cnt:   1,
-					},
-				},
-			},
-		},
-	}
-	var dict *frequencyVocabularyNode
-	for nameTest, suiteTest := range testCases {
-		for _, word := range suiteTest.lst {
-			dict = insert(dict, word)
+type printer struct {
+	paper []byte
+}
+
+func (pr *printer) Write(p []byte) (n int, err error) {
+	pr.paper = append(pr.paper, p...)
+
+	return len(p), nil
+}
+
+type lexicographicalOrderBuilder struct {
+	suite.Suite
+	rows []string
+}
+
+func TestLexicographicalOrder(t *testing.T) {
+	suite.Run(t, new(lexicographicalOrderBuilder))
+}
+
+func (l *lexicographicalOrderBuilder) TestBuild() {
+	var (
+		printer = &printer{}
+		dict *FrequencyVocabularyNode
+	)
+
+	l.rows = strings.Split(resources.TestText, rowsDelimiter)
+
+	for num, row := range l.rows {
+		if row == "" {
+			continue
 		}
-		assert.Equal(t, dict, suiteTest.expected, fmt.Sprintf("test '%s' failed", nameTest))
+		for _, chunk := range strings.Split(row, wordsDelimiter) {
+			dict = search(dict, word(chunk), num)
+		}
 	}
+
+	Print(dict, printer)
+	assert.Equal(
+		l.Suite.T(),
+		strings.TrimSpace(expectedDictionary),
+		strings.TrimSpace(string(printer.paper)),
+	)
 }
