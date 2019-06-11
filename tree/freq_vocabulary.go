@@ -28,6 +28,7 @@ func Print(f *FrequencyVocabularyNode, writer io.Writer) {
 	Print(f.left, writer)
 
 	_, _ = writer.Write([]byte(f.value))
+	_, _ = writer.Write([]byte("\t"))
 
 	var rows = []string{""}
 	item := f.first
@@ -41,7 +42,7 @@ func Print(f *FrequencyVocabularyNode, writer io.Writer) {
 	Print(f.right, writer)
 }
 
-func search (node *FrequencyVocabularyNode, word word, num int) *FrequencyVocabularyNode {
+func search(node *FrequencyVocabularyNode, word word, num int) *FrequencyVocabularyNode {
 	if node == nil {
 		item := &Item{
 			rowNum: num,

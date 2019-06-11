@@ -8,15 +8,14 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
+
 const (
 	expectedDictionary = `
-brother	2
-father	1	2	5
-mother	1
-sister	3
-uncle	2	4`
-	wordsDelimiter = " "
-	rowsDelimiter = "\n"
+brother		2
+father		1	2	5
+mother		1
+sister		3
+uncle		2	4`
 )
 
 type printer struct {
@@ -31,7 +30,6 @@ func (pr *printer) Write(p []byte) (n int, err error) {
 
 type lexicographicalOrderBuilder struct {
 	suite.Suite
-	rows []string
 }
 
 func TestLexicographicalOrder(t *testing.T) {
@@ -44,16 +42,7 @@ func (l *lexicographicalOrderBuilder) TestBuild() {
 		dict *FrequencyVocabularyNode
 	)
 
-	l.rows = strings.Split(resources.TestText, rowsDelimiter)
-
-	for num, row := range l.rows {
-		if row == "" {
-			continue
-		}
-		for _, chunk := range strings.Split(row, wordsDelimiter) {
-			dict = search(dict, word(chunk), num)
-		}
-	}
+	dict = BuildFreqVocabulary(resources.TestText)
 
 	Print(dict, printer)
 	assert.Equal(
