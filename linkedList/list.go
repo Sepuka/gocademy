@@ -1,23 +1,64 @@
 package linkedList
 
-type node struct {
+type Node struct {
 	key  int
-	next *node
+	next *Node
 	data interface{}
 }
 
-func NewNode(key int) *node {
-	return &node{key: key}
+func NewNode(key int) *Node {
+	return &Node{key: key}
 }
 
-type linkedList struct {
-	head *node
-	tail *node
+type LinkedList struct {
+	head *Node
+	tail *Node
 	len  int
 }
 
-func (l *linkedList) list() []*node {
-	result := make([]*node, l.len, l.len)
+func (l *LinkedList) Set(key int, value interface{}, len int) int {
+	var (
+		cur  = l.head
+		prev *Node
+		node = NewNode(key)
+	)
+
+	node.data = value
+
+	if l.len == 0 {
+		l.addToHead(node)
+		return 0
+	}
+
+	if cur.key == key {
+		return 0
+	}
+
+	for cur = cur.next; cur != nil && cur.next != nil; cur = cur.next {
+		if cur.key == key {
+			l.addToHead(cur)
+			prev.next = cur.next
+			return 0
+		}
+		prev = cur
+	}
+
+	if l.len < len {
+		l.addToHead(node)
+		return 0
+	}
+
+	if prev != nil {
+		prev.next = nil
+	}
+	l.addToHead(node)
+
+	return cur.key
+
+}
+
+func (l *LinkedList) list() []*Node {
+	result := make([]*Node, l.len, l.len)
 	element := l.head
 	for i := 0; i < l.len; i++ {
 		result[i] = element
@@ -27,46 +68,46 @@ func (l *linkedList) list() []*node {
 	return result
 }
 
-func (l *linkedList) toHead(nodeDescr *node) {
-	nodeDescr.next = l.head
-	l.head = nodeDescr
+func (l *LinkedList) addToHead(node *Node) {
+	node.next = l.head
+	l.head = node
 	l.len++
 }
 
-func (l *linkedList) toTail(nodeDescr *node) {
+func (l *LinkedList) addToTail(node *Node) {
 	if l.tail == nil {
 		if l.head == nil {
-			l.toHead(nodeDescr)
-			l.tail = nodeDescr
+			l.addToHead(node)
+			l.tail = node
 		} else {
 			tail := l.head
 			for tail.next != nil {
 				tail = tail.next
 			}
-			tail.next = nodeDescr
+			tail.next = node
 			l.len++
 		}
 	} else {
-		l.tail.next = nodeDescr
-		l.tail = nodeDescr
+		l.tail.next = node
+		l.tail = node
 		l.len++
 	}
 }
 
-func (l *linkedList) toPos(nodeDescr *node, pos int) {
+func (l *LinkedList) toPos(nodeDescr *Node, pos int) {
 	if pos > l.len {
 		panic("undefined position")
 	}
 	if pos == 0 {
-		l.toHead(nodeDescr)
+		l.addToHead(nodeDescr)
 		return
 	}
 	if pos == l.len {
-		l.toTail(nodeDescr)
+		l.addToTail(nodeDescr)
 		return
 	}
 
-	var current, buffer *node
+	var current, buffer *Node
 	current = l.head
 	cnt := 0
 	for cnt < pos {
@@ -74,7 +115,7 @@ func (l *linkedList) toPos(nodeDescr *node, pos int) {
 		current = current.next
 	}
 
-	buffer = &node{key: current.key, next: current.next, data: current.data}
+	buffer = &Node{key: current.key, next: current.next, data: current.data}
 	current.key = nodeDescr.key
 	current.data = nodeDescr.data
 	current.next = buffer

@@ -1,7 +1,7 @@
 package linkedList
 
-func naiveInverse(first *node) *node {
-	var nextLink, third, tail *node
+func naiveInverse(first *Node) *Node {
+	var nextLink, third, tail *Node
 	tail = first
 	nextLink = first.next
 	first.next = nil
@@ -15,7 +15,7 @@ func naiveInverse(first *node) *node {
 	return tail
 }
 
-func recursiveInverse(current *node, previous *node) *node {
+func recursiveInverse(current *Node, previous *Node) *Node {
 	next := current.next
 	current.next = previous
 	if next != nil {

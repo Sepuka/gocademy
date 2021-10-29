@@ -5,10 +5,10 @@ import (
 )
 
 func TestToTail(t *testing.T) {
-	list := linkedList{}
-	list.toTail(NewNode(1))
-	list.toTail(NewNode(2))
-	list.toTail(NewNode(3))
+	list := LinkedList{}
+	list.addToTail(NewNode(1))
+	list.addToTail(NewNode(2))
+	list.addToTail(NewNode(3))
 	expected := map[int]int{
 		0: 1,
 		1: 2,
@@ -22,10 +22,10 @@ func TestToTail(t *testing.T) {
 }
 
 func TestToHead(t *testing.T) {
-	list := linkedList{}
-	list.toHead(NewNode(1))
-	list.toHead(NewNode(2))
-	list.toHead(NewNode(3))
+	list := LinkedList{}
+	list.addToHead(NewNode(1))
+	list.addToHead(NewNode(2))
+	list.addToHead(NewNode(3))
 	expected := map[int]int{
 		0: 3,
 		1: 2,
@@ -41,15 +41,15 @@ func TestToHead(t *testing.T) {
 func TestMixedInserts(t *testing.T) {
 	expectedList := []int{2,1,5,3,4}
 
-	list := linkedList{}
+	list := LinkedList{}
 	if list.len != 0 {
 		t.Error("empty list len not equal zero")
 	}
 
-	list.toHead(NewNode(1))
-	list.toTail(NewNode(3))
-	list.toHead(NewNode(2))
-	list.toTail(NewNode(4))
+	list.addToHead(NewNode(1))
+	list.addToTail(NewNode(3))
+	list.addToHead(NewNode(2))
+	list.addToTail(NewNode(4))
 	list.toPos(NewNode(5), 2)
 
 	if list.len != len(expectedList) {

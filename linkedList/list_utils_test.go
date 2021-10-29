@@ -5,9 +5,9 @@ import (
 )
 
 func TestNaiveReverse(t *testing.T) {
-	list := linkedList{}
+	list := LinkedList{}
 	for i := 0; i < 10; i++ {
-		list.toTail(NewNode(i))
+		list.addToTail(NewNode(i))
 	}
 
 	if list.tail != naiveInverse(list.head) {
@@ -17,9 +17,9 @@ func TestNaiveReverse(t *testing.T) {
 
 
 func TestRecursiveReverse(t *testing.T) {
-	list := linkedList{}
+	list := LinkedList{}
 	for i := 0; i < 2; i++ {
-		list.toTail(NewNode(i))
+		list.addToTail(NewNode(i))
 	}
 
 	if list.tail != recursiveInverse(list.head, nil) {
@@ -28,9 +28,9 @@ func TestRecursiveReverse(t *testing.T) {
 }
 
 func BenchmarkReverseNaive(b *testing.B) {
-	list := linkedList{}
+	list := LinkedList{}
 	for i := 0; i < 1000000; i++ {
-		list.toTail(NewNode(i))
+		list.addToTail(NewNode(i))
 	}
 	b.ResetTimer()
 
@@ -40,9 +40,9 @@ func BenchmarkReverseNaive(b *testing.B) {
 }
 
 func BenchmarkReverseRecursive(b *testing.B) {
-	list := linkedList{}
+	list := LinkedList{}
 	for i := 0; i < 1000000; i++ {
-		list.toTail(NewNode(i))
+		list.addToTail(NewNode(i))
 	}
 	b.ResetTimer()
 
