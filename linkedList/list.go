@@ -121,3 +121,29 @@ func (l *LinkedList) toPos(nodeDescr *Node, pos int) {
 	current.next = buffer
 	l.len++
 }
+
+func (head *Node) middle() *Node {
+	if head == nil {
+		return nil
+	}
+
+	var next = head.next
+	if next == nil {
+		return head
+	}
+
+	var middle = next
+	var length = 2
+	var pos = 2
+
+	for next.next != nil {
+		next = next.next
+		length++
+		if length/2 >= pos {
+			middle = middle.next
+			pos++
+		}
+	}
+
+	return middle
+}

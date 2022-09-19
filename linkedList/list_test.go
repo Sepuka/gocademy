@@ -1,6 +1,7 @@
 package linkedList
 
 import (
+	"github.com/magiconair/properties/assert"
 	"testing"
 )
 
@@ -39,7 +40,7 @@ func TestToHead(t *testing.T) {
 }
 
 func TestMixedInserts(t *testing.T) {
-	expectedList := []int{2,1,5,3,4}
+	expectedList := []int{2, 1, 5, 3, 4}
 
 	list := LinkedList{}
 	if list.len != 0 {
@@ -61,4 +62,20 @@ func TestMixedInserts(t *testing.T) {
 			t.Errorf("wrong order: expected %d, got %d", expectedList[i], node.key)
 		}
 	}
+}
+
+func TestMiddle(t *testing.T) {
+	list := LinkedList{}
+	list.addToTail(NewNode(65))
+	list.addToTail(NewNode(66))
+	list.addToTail(NewNode(26))
+	list.addToTail(NewNode(77))
+	list.addToTail(NewNode(96))
+	list.addToTail(NewNode(86))
+	list.addToTail(NewNode(11))
+	list.addToTail(NewNode(21))
+	list.addToTail(NewNode(13))
+	list.addToTail(NewNode(80))
+
+	assert.Equal(t, list.head.middle().key, 86)
 }
