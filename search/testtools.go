@@ -3,6 +3,7 @@ package search
 import (
 	"crypto/rand"
 	"errors"
+	"fmt"
 )
 
 func bufferDataProvider(bufferLen uint, patternLen uint) (string, string, error) {
@@ -16,7 +17,7 @@ func bufferDataProvider(bufferLen uint, patternLen uint) (string, string, error)
 		return "", "", errors.New(err.Error())
 	}
 
-	return string(buffer), string(pattern), nil
+	return fmt.Sprint(buffer), fmt.Sprint(pattern), nil
 }
 
 func generateBytes(length uint) (n int, err error) {
