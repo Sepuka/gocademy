@@ -2,12 +2,17 @@ package tree
 
 import (
 	"strings"
-
 )
+
+type Tree struct {
+	value int
+	left  *Tree
+	right *Tree
+}
 
 const (
 	wordsDelimiter = " "
-	rowsDelimiter = "\n"
+	rowsDelimiter  = "\n"
 )
 
 func BuildFreqVocabulary(text string) *FrequencyVocabularyNode {
