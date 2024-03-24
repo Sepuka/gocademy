@@ -1,43 +1,65 @@
 package arr
 
-func getIntersection(input [][]int) [][]int {
+type meet = struct {
+	start int
+	end   int
+}
+
+func getIntersection(mettings [][]int) [][]int {
+	var intersections []meet
 	var result [][]int
 	var start, end int
-	var i int
+	var i int = 1
+	var j int = 0
+	var current meet
+	var next meet
+	var wasIntersected bool
 
-	for i < len(input)-1 {
-		if hasIntersect(input[i], input[i+1]) {
-			if input[0][0] < input[1][0] {
-				start = input[0][0]
-			} else {
-				start = input[1][0]
-			}
-
-			if input[0][1] > input[1][1] {
-				end = input[0][1]
-			} else {
-				end = input[1][1]
-			}
-
-			result = append(result, []int{start, end})
-			i++
-		} else {
-			result = append(result, input[i])
-			if i == len(input)-2 {
-				result = append(result, input[i+1])
-			}
+	for j < len(mettings) {
+		current = meet{
+			start: mettings[j][0],
+			end:   mettings[j][1],
 		}
-		i++
+
+		for i < len(mettings) {
+			next = meet{
+				start: mettings[i][0],
+				end:   mettings[i][1],
+			}
+
+			if hasIntersect(current, next) {
+				if current.start < next.start {
+					start = current.start
+				} else {
+					start = next.start
+				}
+
+				if current.end > next.end {
+					end = current.end
+				} else {
+					end = next.end
+				}
+
+				intersections = append(intersections, meet{start: start, end: end})
+				wasIntersected = true
+			} else {
+				intersections = append(intersections, next)
+			}
+			i++
+		}
+		if !wasIntersected {
+			intersections = append(intersections, current)
+		}
+		j++
+	}
+
+	for _, v := range intersections {
+		result = append(result, []int{v.start, v.end})
 	}
 
 	return result
 }
 
-func hasIntersect(a []int, b []int) bool {
-	var aStart = a[0]
-	var aEnd = a[1]
-	var bStart = b[0]
-	var bEnd = b[1]
-
-	return aStart <= bEnd && aEnd >= bStart
+func hasIntersect(a meet, b meet) bool {
+	return a.start <= b.end && a.end >= b.start
 }
